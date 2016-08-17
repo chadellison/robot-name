@@ -3,30 +3,23 @@
 var uniqueNames = {}
 
 const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const allNumbers = "0123456789"
 
 class Robot {
   constructor() {
     this.name = this.generateName()
   }
 
-  randomLetters() {
-    let letters = ""
-    for (var i = 0; i < 2; i++) {
-      letters += allLetters[Math.floor(Math.random() * 26)]
+  randomChars(count, characterPool) {
+    let characters = ""
+    for (var i = 0; i < count; i++) {
+      characters += characterPool[Math.floor(Math.random() * characterPool.length)]
     }
-    return letters
-  }
-
-  randomNumbers() {
-    let numbers = ""
-    for (var i = 0; i < 3; i++) {
-      numbers += [0,1,2,3,4,5,6,7,8,9][Math.floor(Math.random() * 10)].toString()
-    }
-    return numbers
+    return characters
   }
 
   generateName() {
-    let name = this.randomLetters() + this.randomNumbers()
+    let name = this.randomChars(2, allLetters) + this.randomChars(3, allNumbers)
     if (this.includesName(name)) {
       return this.generateName()
     } else {
@@ -41,6 +34,10 @@ class Robot {
     } else {
       return false
     }
+  }
+
+  reset() {
+    this.name = this.generateName()
   }
 }
 
